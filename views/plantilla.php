@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php if(!headers_sent()): ?>
 <head>
     <title>Sistema de Inventario</title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
@@ -33,7 +32,6 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
 </head>
-<?php endif; ?>
 
 <body>
     <!-- Pre-loader start: Animacióon de carga inicial -->

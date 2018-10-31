@@ -185,6 +185,23 @@ class Datos extends Conexion{
     $stmt->close();
   }
   
+  #Trae un registro de historiales
+  public function HistorialModel($id, $tabla){
+    //Se invoca la funcion conectar de la clase Conexion, para preparar la consulta
+    $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE usuario = :id");
+    $stmt->bindParam(":id", $id, PDO::PARAM_STR);
+    //Si se logra la consulta regresa el resultado
+    if ($stmt->execute()) {
+      return $stmt;
+    }
+    else{
+      return[];
+    }
+    //Se cierra la conexion
+    $stmt->close();
+  }
+  
+  
   #Consulta de un registro de una tabla
   public function unLoginModel($datosModel, $tabla){
     //Se invoca la funcion conectar de la clase Conexion, para preparar la consulta
@@ -206,6 +223,27 @@ class Datos extends Conexion{
     //Se invoca la funcion conectar de la clase Conexion, para preparar la consulta
     $stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id=:id");
     $stmt->bindParam(":id", $id, PDO::PARAM_STR);
+    //Si se logra la consulta regresa el resultado
+    if ($stmt->execute()) {
+      return "success";
+    }
+    else{
+      return "error";
+    }
+    //Se cierra la conexion
+    $stmt->close();
+  }
+  
+  #Actualizar el stock de un producto
+  public function updateStockModel($datosModel, $tabla){
+    //Se invoca la funcion conectar de la clase Conexion, para preparar la consulta
+    $stmt = Conexion::conectar()->prepare("CALL $tabla(:prod, :act, :user, :nota, :ref, :cant)");
+    $stmt->bindParam(":prod", $datosModel['prod'], PDO::PARAM_STR);
+    $stmt->bindParam(":act", $datosModel['action'], PDO::PARAM_STR);
+    $stmt->bindParam(":user", $datosModel['user'], PDO::PARAM_STR);
+    $stmt->bindParam(":nota", $datosModel['nota'], PDO::PARAM_STR);
+    $stmt->bindParam(":ref", $datosModel['ref'], PDO::PARAM_STR);
+    $stmt->bindParam(":cant", $datosModel['cantidad'], PDO::PARAM_STR);
     //Si se logra la consulta regresa el resultado
     if ($stmt->execute()) {
       return "success";

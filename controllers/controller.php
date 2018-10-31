@@ -1,6 +1,7 @@
 <?php
 
 	class MvcController{
+    
     //Llamar a la plantilla
     public function pagina(){
       //Include se utiliza para invocar el arhivo que contiene el codigo HTML
@@ -177,7 +178,7 @@
 
         if($respuesta){
           if($datosController['password'] == $respuesta['password']){
-            
+            session_start();
             $_SESSION['usuario_id'] = $respuesta['id'];
             $_SESSION['usuario_nombre'] = $respuesta['nombre'];
             $_SESSION['usuario_apellido'] = $respuesta['apellido'];
@@ -188,11 +189,11 @@
             header("Location: index.php");
           }
           else{
-            //header("location:login.php");
+            header("location:login.php");
           }
         }
         else{
-          //header("location:login.php");
+          header("location:login.php");
         }
       }
     }
@@ -241,4 +242,27 @@
         }
       }
     }
+    
+    public function updateStockController($id, $action){
+      if(isset($_POST['cantUp'])){
+        if($action < 1) 
+          $ac="elimino"; 
+        else 
+          $ac="agrego";
+        $nota = $_SESSION['usuario_nombre'] . " " . $_SESSION['usuario_apellido'] . " " . $ac . " " . $_POST['cantUp'] . " producto(s) al inventario.";
+        //Recibe todas las variables mediante POST y las asigna a un array asociado
+        $datosController = array("prod" => $id,
+                                 "action" => $action,
+                                 "user" => $_SESSION['usuario_id'],
+                                 "cantidad" => $_POST['cantUp'],
+                                 "ref" => $_POST['refUp'],
+                                 "nota" => $nota);
+        $respuesta = Datos::updateStockModel($datosController,"cambiarStock");
+        if($respuesta="success")
+          header("Location: index.php?action=viewProducto&id=" . $id);
+        else
+          header("Location: index.php");
+      }
+    }
+    
   }

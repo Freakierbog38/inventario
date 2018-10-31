@@ -1,4 +1,9 @@
 <?php
+ob_start();
+if (headers_sent()){ 
+  $contenido = ob_get_contents();
+  ob_end_clean();
+}
 
 //El index que muestra al usuario las salidas de la vistas y a traves de el se enviará las diferentes acciones del usuario al controlador
 
@@ -20,7 +25,7 @@ if($_SESSION){
 	$mvc->pagina();
 }
 else{
-	header("Location: login.php");
+   header("Location: login.php");
 }
 
 

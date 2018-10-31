@@ -1,13 +1,12 @@
 <?php
+ob_start();
 //Invocamos el modelo que se utilizará en todos los archivos
 require_once('models/enlaces.php');
 require_once('models/crud.php');
 require_once('controllers/controller.php');
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-<?php if(!headers_sent()): ?>
 <head>
     <title>Sistema Inventario | Login</title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
@@ -39,7 +38,6 @@ require_once('controllers/controller.php');
 
 
 </head>
-<?php endif; ?>
 <body class="fix-menu">
     <!-- Pre-loader start -->
     <div class="theme-loader">

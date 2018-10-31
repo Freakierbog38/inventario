@@ -9,7 +9,7 @@
       || $enlacesModel == "addProducto" || $enlacesModel == "addUser" || $enlacesModel == "addCategoria"
       || $enlacesModel == "viewProducto" || $enlacesModel == "updateProducto" || $enlacesModel == "updateUser"
       || $enlacesModel == "updateCategoria" || $enlacesModel == "deleteProducto" || $enlacesModel == "deleteUser"
-      || $enlacesModel == "deleteCategoria"){
+      || $enlacesModel == "deleteCategoria" || $enlacesModel == "updateStock"){
         // Y lo envia para esa dirección
 				$module = "views/module/" . $enlacesModel .".php";
 			}

@@ -49,10 +49,10 @@ $producto = Datos::unProductoModel($id, "fullProd");
                 <strong>Agregar o quitar en stock</strong>
               </div>
               <div class="col-sm-6 col-xs-6 col-md-4 ">
-                <a href="" class="btn btn-success"><i class="ti-plus"></i></a>
+                <a href="index.php?action=updateStock&id=<?php echo $producto['id'] ?>&accion=0" class="btn btn-success"><i class="ti-plus"></i></a>
               </div>
               <div class="col-sm-6 col-xs-6 col-md-4">
-                <a href="" class="btn btn-warning"><i class="ti-minus"></i></a>
+                <a href="index.php?action=updateStock&id=<?php echo $producto['id'] ?>&accion=1" class="btn btn-warning"><i class="ti-minus"></i></a>
               </div>
               <div class="col-sm-12 margin-btm-10">
               </div>
@@ -72,18 +72,22 @@ $producto = Datos::unProductoModel($id, "fullProd");
                   </tr>
                   <tr>
                     <td>Fecha</td>
-                    <td>Hora</td>
                     <td>Descripción</td>
                     <td>Referencia</td>
                     <td class="text-center">Total</td>
                   </tr>
+                  <?php 
+                    // Hace la consulta del producto
+                    $dato = Datos::HistorialModel($id, "historiales");
+                    foreach($dato as $d):
+                  ?>
                   <tr>
-                    <td>28/10/2018</td>
-                    <td>17:50:31</td>
-                    <td>Mario Humberto agregó 21 producto(s) al inventario</td>
-                    <td>007</td>
-                    <td class="text-center">21.00</td>
+                    <td><?php echo $d['fecha']; ?></td>
+                    <td><?php echo $d['nota']; ?></td>
+                    <td><?php echo $d['referencia']; ?></td>
+                    <td class="text-center"><?php echo ($d['cantidad'] * $producto['precio']); ?></td>
                   </tr>
+                  <?php endforeach; ?>
                 </tbody>
               </table>
             </div>
